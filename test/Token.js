@@ -10,7 +10,7 @@ describe('Token', () => {
 
 	beforeEach(async () => {
 		const Token = await ethers.getContractFactory('Token')
-		token = await Token.deploy('TritonBrass', 'TRITON', '5000')
+		token = await Token.deploy('MarkDev', 'MDV', '5000')
 	
 		accounts = await ethers.getSigners()
 		deployer = accounts[0]
@@ -19,8 +19,8 @@ describe('Token', () => {
 	})
 
 describe('Deployment', () => {
-	const name = 'TritonBrass'
-	const symbol = 'TRITON'
+	const name = 'MarkDev'
+	const symbol = 'MDV'
 	const decimals = '18'
 	const totalSupply = tokens('5000')
 
@@ -44,7 +44,7 @@ describe('Deployment', () => {
 		expect(await token.balanceOf(deployer.address)).to.equal(totalSupply)
 	})
 
-})
+	})
 
 describe('Sending Tokens', () => {
 		let amount, transaction, result
@@ -72,7 +72,7 @@ describe('Sending Tokens', () => {
         expect(args.value).to.equal(amount)
 			})
 
-		})
+			})
 
     describe('Failure', () => {
     	it('rejets insufficient balances', async () => {
@@ -113,7 +113,7 @@ describe('Sending Tokens', () => {
 					expect(args.value).to.equal(amount)
 			})
 
-		})
+			})
 
 			describe('failure', () => {
 				it('rejects invalid spenders', async () => {
@@ -159,7 +159,7 @@ describe('Sending Tokens', () => {
 			})
 
 
-		})
+			})
 				describe('Failure', async () => {
 						const invalidAmount = tokens(500000)
 						await expect(token.connect(exchange).transferFrom(deployer.address, receiver.address, invalidAmount)).to.be.reverted
