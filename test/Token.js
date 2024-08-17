@@ -143,11 +143,26 @@ describe('Sending Tokens', () => {
 						expect(await token.balanceOf(deployer.address)).to.be.equal(ethers.utils.parseUnits('4900', 'ether'))
 						expect(await token.balanceOf(receiver.address)).to.be.equal(amount)
 			})
+					
+					it('resets the allowance', async () => {
+						expect(await token.allowance(deployer.address, exchange.address)).to.be.equal(0)
+			})
+
+					it('emits a transfer event', async () => {
+						const event = result.events[0]
+						expect(event.event).to.equal('Transfer')
+
+						const args = event.args
+						expect(args.from).to.equal(deployer.address)
+						expect(args.to).to.equal(receiver.address)
+						expect(args.value).to.equal(amount)
+			})
 
 
 		})
-				describe('Failure', () => {
-
+				describe('Failure', async () => {
+						const invalidAmount = tokens(500000)
+						await expect(token.connect(exchange).transferFrom(deployer.address, receiver.address, invalidAmount)).to.be.reverted
 			})
 
 		})
