@@ -32,24 +32,24 @@ contract Token {
 		string memory _name, 
 		string memory _symbol, 
 		uint256 _totalSupply
-	){
+){
 
 		name = _name;
 		symbol = _symbol;
 		totalSupply = _totalSupply * (10**decimals);
 		balanceOf[msg.sender] = totalSupply;
-	}
+}
 
 	function transfer(
 		address _to, 
 		uint256 _value) 
 		public returns (bool success
-) {
+){
 
 		require(balanceOf[msg.sender] >= _value);
 		_transfer(msg.sender, _to, _value);
 		return true;
-	}
+}
 
 	function _transfer(address _from, address _to, uint256 _value) internal {
 		require(_to != address(0));
@@ -59,12 +59,12 @@ contract Token {
 
 		emit Transfer(_from, _to, _value);
 		
- 	}
+}
 
 	function approve(
 		address _spender,
 		uint256 _value
-	)
+)
 		public returns (bool success) {
 
 			require(_spender != address(0));
@@ -74,7 +74,7 @@ contract Token {
 			emit Approval(msg.sender, _spender, _value);
 
 			return true;
-		}
+}
 
 		function transferFrom(address _from, address _to, uint256 _value) public returns(bool success) {
 
@@ -86,6 +86,6 @@ contract Token {
 		_transfer(_from, _to, _value);
 
 	    return true;
-		}
+	}
 	
 }
